@@ -9,6 +9,7 @@ import os
 import logging
 from tempfile import NamedTemporaryFile
 from shutil import copy
+import webbrowser
 
 
 def attrsetter(attr):
@@ -121,23 +122,29 @@ class TaskTimeManager(QtWidgets.QWidget):
         self.timer_screen.setText("00:00")
 
     def starttimer(self, seconds):
+        self.timerisstarted = True
         self.cur_time = QtCore.QTime(0, int(seconds / 60), seconds % 60)
         self.timer.start(1000)
         self.timer_screen.setText(self.cur_time.toString("mm:ss"))
 
     @QtCore.Slot()
     def timerEvent(self):
-        if not self.timerisstarted:
-            return
-        elif self.cur_time.second() + self.cur_time.minute() * 60 == 0:
-            self.timerended()
-        else:
-            self.cur_time = self.cur_time.addSecs(-1)
-            time_text = self.cur_time.toString("mm:ss")
-            self.timer_screen.setText(time_text)
+        try:
+            if not self.timerisstarted:
+                return
+            elif self.cur_time.second() + self.cur_time.minute() * 60 == 0:
+                self.timerended()
+            else:
+                self.cur_time = self.cur_time.addSecs(-1)
+                time_text = self.cur_time.toString("mm:ss")
+                self.timer_screen.setText(time_text)
+        except KeyboardInterrupt:
+            sys.exit()
 
     def timerended(self):
+        self.timerisstarted = False
         success = self.dlg.exec()
+        #webbrowser.open("http://localhost:3001/")
         if self.timer_type == "task_period":
             if success:
                 self.datarecorder.successful_periods += 1
@@ -154,7 +161,7 @@ class TaskTimeManager(QtWidgets.QWidget):
                 self.starttimer(self.config["short_break"])
         else:
             if self.timer_type == "short_break":
-                self.datarecorder.short_break += 1
+                self.datarecorder.short_breaks += 1
             elif self.timer_type == "long_break":
                 self.datarecorder.long_breaks += 1
             self.timer_type = "task_period"
