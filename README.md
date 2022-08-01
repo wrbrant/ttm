@@ -1,6 +1,6 @@
 # Task Time Manager
 A configurable pomodoro timer intended to be cross platform, leveraging PyQt6. The timer will track successful periods, breaks, etc. in a JSON file, specified in `config.toml`.
-
+test
 ## Dependencies
 - `python3` (tested with python 3.10.5)
 - `poetry`
