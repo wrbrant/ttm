@@ -9,9 +9,8 @@ import os
 import logging
 from tempfile import NamedTemporaryFile
 from shutil import copy
-import webbrowser
-
-
+# import vlc
+import playsound
 def attrsetter(attr):
     def set_any(self, value):
         self.d[attr] = value
@@ -87,6 +86,7 @@ class TaskEndedDialog(QtWidgets.QDialog):
         self.setLayout(self.layout)
 
 
+
 class TaskTimeManager(QtWidgets.QWidget):
     def __init__(self, config):
         super().__init__()
@@ -143,8 +143,11 @@ class TaskTimeManager(QtWidgets.QWidget):
 
     def timerended(self):
         self.timerisstarted = False
+        # os.system("mpg123 " + "halo.mp3")
+        # os.system("q")
+        playsound.playsound("alarm.wav")
         success = self.dlg.exec()
-        #webbrowser.open("http://localhost:3001/")
+
         if self.timer_type == "task_period":
             if success:
                 self.datarecorder.successful_periods += 1

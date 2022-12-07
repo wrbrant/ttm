@@ -8,6 +8,7 @@ authors = ["mcutshaw <jack@jackofnotrades.org>"]
 python = ">=3.8,<3.11"
 PySide6 = "^6.3.1"
 tomli = "^2.0.1"
+playsound = "^1.3.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
