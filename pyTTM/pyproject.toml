@@ -2,7 +2,7 @@
 name = "ttm"
 version = "0.1.0"
 description = ""
-authors = ["mcutshaw <jack@jackofnotrades.org>"]
+authors = ["mcutshaw <jack@jackofnotrades.org>", "wbrant <wrbrant23@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"

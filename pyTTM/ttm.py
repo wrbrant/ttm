@@ -28,15 +28,9 @@ def attrgetter(attr):
 
 class DataRecorder:
     interrupts = property(fset=attrsetter("interrupts"), fget=attrgetter("interrupts"))
-    short_breaks = property(
-        fset=attrsetter("short_breaks"), fget=attrgetter("short_breaks")
-    )
-    long_breaks = property(
-        fset=attrsetter("long_breaks"), fget=attrgetter("long_breaks")
-    )
-    successful_periods = property(
-        fset=attrsetter("successful_periods"), fget=attrgetter("successful_periods")
-    )
+    short_breaks = property(fset=attrsetter("short_breaks"), fget=attrgetter("short_breaks"))
+    long_breaks = property(fset=attrsetter("long_breaks"), fget=attrgetter("long_breaks"))
+    successful_periods = property(fset=attrsetter("successful_periods"), fget=attrgetter("successful_periods"))
 
     def __init__(self, file_path):
         self.file_path = file_path
@@ -57,7 +51,7 @@ class DataRecorder:
                 "short_breaks": 0,
                 "long_breaks": 0,
                 "successful_periods": 0,
-                "history": [],
+                "history": [], #history here sucks. I need something better than this
             }
 
     def save(self):
